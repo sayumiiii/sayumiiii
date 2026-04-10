@@ -2,153 +2,143 @@
 // CAKE CLUB COLOMBO — Script
 // ============================================================
 
-// ---------- NAV: scroll class + hamburger ----------
+// ---------- NAV: scrolled class ----------
 const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// ---------- HAMBURGER ----------
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
-
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 40) {
-    nav.classList.add('scrolled');
-  } else {
-    nav.classList.remove('scrolled');
-  }
+hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => mobileMenu.classList.remove('open'));
 });
 
-hamburger.addEventListener('click', () => {
-  mobileMenu.classList.toggle('open');
-});
-
-// Close mobile menu when a link is clicked
-mobileMenu.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    mobileMenu.classList.remove('open');
+// ---------- SMOOTH SCROLL ----------
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
   });
 });
 
-// ---------- SMOOTH SCROLL for nav links ----------
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      const offset = 72; // nav height
-      const top = target.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
+// ---------- GALLERY FILTER TABS ----------
+const tabs = document.querySelectorAll('.tab');
+const galleryItems = document.querySelectorAll('.gallery__item');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    const filter = tab.dataset.filter;
+    galleryItems.forEach(item => {
+      const cats = item.dataset.cat || '';
+      const show = filter === 'all' || cats.includes(filter);
+      item.classList.toggle('hidden', !show);
+      // Reset tall on filter
+      if (filter !== 'all') {
+        item.classList.remove('gallery__item--tall');
+      }
+    });
+    // Re-add tall to first visible item when showing all
+    if (filter === 'all') {
+      const first = document.querySelector('.gallery__item');
+      if (first) first.classList.add('gallery__item--tall');
     }
   });
 });
 
-// ---------- INTERSECTION OBSERVER: fade-in animations ----------
+// ---------- INTERSECTION OBSERVER: fade-up ----------
 const fadeEls = document.querySelectorAll(
-  '.menu-card, .testi-card, .step, .flavour-pill, .about__text, .about__visual, .gallery__item'
+  '.menu-card, .gallery__item, .how-step, .about__text, .about__visual, .testi-card, .dm-btn'
 );
+fadeEls.forEach(el => el.classList.add('fade-up'));
 
-fadeEls.forEach(el => el.classList.add('fade-in'));
-
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, i * 60);
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.12 }
-);
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 70);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
 
 fadeEls.forEach(el => observer.observe(el));
 
-// ---------- ORDER FORM: WhatsApp redirect ----------
+// ---------- ORDER FORM → Instagram DM ----------
 const orderForm = document.getElementById('orderForm');
-
-orderForm.addEventListener('submit', (e) => {
+orderForm.addEventListener('submit', e => {
   e.preventDefault();
-
   const name     = document.getElementById('name').value.trim();
   const phone    = document.getElementById('phone').value.trim();
-  const occasion = document.getElementById('occasion').value;
+  const cakeType = document.getElementById('cakeType').value;
   const date     = document.getElementById('date').value;
   const message  = document.getElementById('message').value.trim();
 
-  const text = encodeURIComponent(
+  // Build a pre-filled message for Instagram (copy to clipboard)
+  const text =
     `Hi Cake Club Colombo! 🎂\n\n` +
-    `*Name:* ${name}\n` +
-    `*Phone:* ${phone}\n` +
-    `*Occasion:* ${occasion}\n` +
-    `*Date:* ${date}\n` +
-    `*Details:* ${message || 'N/A'}`
-  );
+    `Name: ${name}\n` +
+    `Phone: ${phone}\n` +
+    `Cake: ${cakeType}\n` +
+    `Date: ${date}\n` +
+    `Details: ${message || 'N/A'}`;
 
-  // Open Instagram DM as fallback (WhatsApp number placeholder)
-  window.open(`https://www.instagram.com/cakeclubcolombo`, '_blank');
+  navigator.clipboard.writeText(text).catch(() => {});
+  window.open('https://www.instagram.com/cakeclubcolombo', '_blank');
   orderForm.reset();
-  showToast('Redirecting you to Instagram to send your enquiry! 🎂');
+  showToast('Opening Instagram — your enquiry details are copied to clipboard! 🌸');
 });
 
-// ---------- TOAST NOTIFICATION ----------
+// ---------- TOAST ----------
 function showToast(msg) {
-  const existing = document.querySelector('.toast');
-  if (existing) existing.remove();
-
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.textContent = msg;
-  toast.style.cssText = `
-    position: fixed;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: #4a2c2a;
-    color: #fff;
-    padding: 14px 28px;
-    border-radius: 50px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: .92rem;
-    font-weight: 500;
-    box-shadow: 0 8px 32px rgba(74,44,42,.35);
-    z-index: 999;
-    opacity: 0;
-    transition: opacity .35s ease, transform .35s ease;
-    white-space: nowrap;
-  `;
+  document.querySelector('.toast')?.remove();
+  const toast = Object.assign(document.createElement('div'), {
+    className: 'toast',
+    textContent: msg,
+  });
+  Object.assign(toast.style, {
+    position: 'fixed',
+    bottom: '28px',
+    left: '50%',
+    transform: 'translateX(-50%) translateY(16px)',
+    background: '#2a1f1f',
+    color: '#fff',
+    padding: '13px 26px',
+    borderRadius: '50px',
+    fontFamily: "'DM Sans', sans-serif",
+    fontSize: '.88rem',
+    fontWeight: '500',
+    boxShadow: '0 8px 32px rgba(42,31,31,.3)',
+    zIndex: '9999',
+    opacity: '0',
+    transition: 'opacity .3s ease, transform .3s ease',
+    whiteSpace: 'nowrap',
+    maxWidth: '90vw',
+    textAlign: 'center',
+  });
   document.body.appendChild(toast);
-
   requestAnimationFrame(() => {
     toast.style.opacity = '1';
     toast.style.transform = 'translateX(-50%) translateY(0)';
   });
-
   setTimeout(() => {
     toast.style.opacity = '0';
-    toast.style.transform = 'translateX(-50%) translateY(20px)';
-    setTimeout(() => toast.remove(), 400);
-  }, 3500);
+    toast.style.transform = 'translateX(-50%) translateY(16px)';
+    setTimeout(() => toast.remove(), 350);
+  }, 4000);
 }
 
-// ---------- GALLERY: lazy load hint ----------
-// Gallery items link directly to Instagram — no extra JS needed.
-
-// ---------- ACTIVE NAV LINK on scroll ----------
+// ---------- ACTIVE NAV LINK ----------
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav__links a[href^="#"]');
-
 window.addEventListener('scroll', () => {
   let current = '';
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop - 100;
-    if (window.scrollY >= sectionTop) {
-      current = section.getAttribute('id');
-    }
-  });
-
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === `#${current}`) {
-      link.classList.add('active');
-    }
-  });
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${current}`));
 }, { passive: true });
