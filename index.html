@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cake Club Colombo</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">
+        <span class="nav__logo-icon">🎂</span>
+        <span>Cake Club <em>Colombo</em></span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#order" class="nav__cta">Order Now</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu">
+      <li><a href="#about">About</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#order">Order Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero__bg"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">Handcrafted with love · Colombo, Sri Lanka</p>
+      <h1 class="hero__title">
+        Every slice tells<br /><em>a sweet story</em>
+      </h1>
+      <p class="hero__sub">
+        Custom cakes, dreamy desserts &amp; edible art — made just for your most
+        special moments.
+      </p>
+      <div class="hero__actions">
+        <a href="#order" class="btn btn--primary">Order Your Cake</a>
+        <a href="#menu" class="btn btn--ghost">Explore Menu</a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE STRIP -->
+  <div class="marquee">
+    <div class="marquee__track">
+      <span>Custom Birthday Cakes</span><span class="dot">✦</span>
+      <span>Wedding Cakes</span><span class="dot">✦</span>
+      <span>Celebration Cakes</span><span class="dot">✦</span>
+      <span>Dessert Boxes</span><span class="dot">✦</span>
+      <span>Cupcakes</span><span class="dot">✦</span>
+      <span>Brownies</span><span class="dot">✦</span>
+      <span>Macarons</span><span class="dot">✦</span>
+      <span>Cake Jars</span><span class="dot">✦</span>
+      <span>Custom Birthday Cakes</span><span class="dot">✦</span>
+      <span>Wedding Cakes</span><span class="dot">✦</span>
+      <span>Celebration Cakes</span><span class="dot">✦</span>
+      <span>Dessert Boxes</span><span class="dot">✦</span>
+      <span>Cupcakes</span><span class="dot">✦</span>
+      <span>Brownies</span><span class="dot">✦</span>
+      <span>Macarons</span><span class="dot">✦</span>
+      <span>Cake Jars</span><span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="about__grid">
+        <div class="about__visual">
+          <div class="about__card about__card--1">
+            <div class="about__card-img about__card-img--1"></div>
+          </div>
+          <div class="about__card about__card--2">
+            <div class="about__card-img about__card-img--2"></div>
+          </div>
+          <div class="about__badge">
+            <span class="about__badge-num">500+</span>
+            <span class="about__badge-label">Happy Customers</span>
+          </div>
+        </div>
+        <div class="about__text">
+          <p class="section__eyebrow">Our Story</p>
+          <h2 class="section__title">Born from passion,<br />baked with heart</h2>
+          <p class="about__body">
+            Cake Club Colombo is a home-based artisan bakery nestled in the heart of
+            Colombo, Sri Lanka. We believe every celebration deserves a cake as unique
+            as the person you're celebrating — crafted with premium ingredients,
+            obsessive attention to detail, and a whole lot of love.
+          </p>
+          <p class="about__body">
+            From intimate birthday cakes to grand wedding centrepieces, each creation
+            is fully customised to your vision. Follow our journey on Instagram
+            <a href="https://www.instagram.com/cakeclubcolombo" target="_blank" rel="noopener" class="inline-link">@cakeclubcolombo</a>
+            for daily sweet inspiration.
+          </p>
+          <div class="about__stats">
+            <div class="stat">
+              <span class="stat__num">100%</span>
+              <span class="stat__label">Custom Orders</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num">Fresh</span>
+              <span class="stat__label">Daily Bakes</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num">LK</span>
+              <span class="stat__label">Island-wide Delivery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu section" id="menu">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">What We Bake</p>
+        <h2 class="section__title">Our Specialties</h2>
+      </div>
+      <div class="menu__grid">
+
+        <div class="menu-card">
+          <div class="menu-card__emoji">🎂</div>
+          <h3 class="menu-card__title">Custom Cakes</h3>
+          <p class="menu-card__desc">
+            Fully personalised tiered cakes for birthdays, anniversaries, graduations
+            and every milestone worth celebrating.
+          </p>
+          <span class="menu-card__tag">From LKR 3,500</span>
+        </div>
+
+        <div class="menu-card menu-card--featured">
+          <div class="menu-card__emoji">💍</div>
+          <h3 class="menu-card__title">Wedding Cakes</h3>
+          <p class="menu-card__desc">
+            Elegant multi-tier masterpieces with fresh florals, fondant sculpting and
+            sugar artistry tailored to your wedding theme.
+          </p>
+          <span class="menu-card__tag">Custom Quote</span>
+        </div>
+
+        <div class="menu-card">
+          <div class="menu-card__emoji">🧁</div>
+          <h3 class="menu-card__title">Cupcakes</h3>
+          <p class="menu-card__desc">
+            Moist, fluffy cupcakes with buttercream swirls — available in boxes of 6,
+            12 or 24 with custom toppers.
+          </p>
+          <span class="menu-card__tag">From LKR 1,800 / box</span>
+        </div>
+
+        <div class="menu-card">
+          <div class="menu-card__emoji">🍫</div>
+          <h3 class="menu-card__title">Brownies &amp; Blondies</h3>
+          <p class="menu-card__desc">
+            Fudgy, rich chocolate brownies and golden blondies — perfect as gifts or
+            as a treat-yourself moment.
+          </p>
+          <span class="menu-card__tag">From LKR 1,200 / box</span>
+        </div>
+
+        <div class="menu-card">
+          <div class="menu-card__emoji">🎀</div>
+          <h3 class="menu-card__title">Dessert Boxes</h3>
+          <p class="menu-card__desc">
+            Curated sweet collections in a gift box — ideal for gifting, hampers and
+            corporate events.
+          </p>
+          <span class="menu-card__tag">From LKR 2,500</span>
+        </div>
+
+        <div class="menu-card">
+          <div class="menu-card__emoji">🍰</div>
+          <h3 class="menu-card__title">Cake Jars &amp; Cups</h3>
+          <p class="menu-card__desc">
+            Layered cake-in-a-jar creations in flavours like Red Velvet, Lotus
+            Biscoff, Oreo and Mango Mousse.
+          </p>
+          <span class="menu-card__tag">From LKR 450 each</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FLAVOURS -->
+  <section class="flavours section">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">Taste the difference</p>
+        <h2 class="section__title">Popular Flavours</h2>
+      </div>
+      <div class="flavours__grid">
+        <div class="flavour-pill">🍓 Strawberry Cream</div>
+        <div class="flavour-pill">🍫 Dark Chocolate Ganache</div>
+        <div class="flavour-pill">🍋 Lemon Drizzle</div>
+        <div class="flavour-pill">🌹 Rose &amp; Pistachio</div>
+        <div class="flavour-pill">🍪 Lotus Biscoff</div>
+        <div class="flavour-pill">🍰 Red Velvet</div>
+        <div class="flavour-pill">🥭 Mango Mousse</div>
+        <div class="flavour-pill">🍬 Vanilla Bean</div>
+        <div class="flavour-pill">🍑 Peaches &amp; Cream</div>
+        <div class="flavour-pill">☕ Coffee Caramel</div>
+        <div class="flavour-pill">🍊 Orange Chiffon</div>
+        <div class="flavour-pill">🖤 Oreo Cookies &amp; Cream</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY / INSTAGRAM -->
+  <section class="gallery section" id="gallery">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">@cakeclubcolombo</p>
+        <h2 class="section__title">Follow Our Sweet Journey</h2>
+        <p class="gallery__sub">
+          See our latest creations on Instagram
+        </p>
+      </div>
+      <div class="gallery__grid">
+        <a href="https://www.instagram.com/cakeclubcolombo" target="_blank" rel="noopener" class="gallery__item gallery__item--1">
+          <div class="gallery__overlay"><span>View on Instagram ↗</span></div>
+        </a>
+        <a href="https://www.instagram.com/cakeclubcolombo" target="_blank" rel="noopener" class="gallery__item gallery__item--2">
+          <div class="gallery__overlay"><span>View on Instagram ↗</span></div>
+        </a>
+        <a href="https://www.instagram.com/cakeclubcolombo" target="_blank" rel="noopener" class="gallery__item gallery__item--3">
+          <div class="gallery__overlay"><span>View on Instagram ↗</span></div>
+        </a>
+        <a href="https://www.instagram.com/cakeclubcolombo" target="_blank" rel="noopener" class="gallery__item gallery__item--4">
+          <div class="gallery__overlay"><span>View on Instagram ↗</span></div>
+        </a>
+        <a href="https://www.instagram.com/cakeclubcolombo" target="_blank" rel="noopener" class="gallery__item gallery__item--5">
+          <div class="gallery__overlay"><span>View on Instagram ↗</span></div>
+        </a>
+        <a href="https://www.instagram.com/cakeclubcolombo" target="_blank" rel="noopener" class="gallery__item gallery__item--6">
+          <div class="gallery__overlay"><span>View on Instagram ↗</span></div>
+        </a>
+      </div>
+      <div class="gallery__cta">
+        <a href="https://www.instagram.com/cakeclubcolombo" target="_blank" rel="noopener" class="btn btn--outline">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          Follow @cakeclubcolombo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process section">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">How it works</p>
+        <h2 class="section__title">Your Cake in 4 Steps</h2>
+      </div>
+      <div class="process__steps">
+        <div class="step">
+          <div class="step__num">01</div>
+          <h3 class="step__title">Tell Us Your Vision</h3>
+          <p class="step__desc">DM us on Instagram or WhatsApp with your date, theme, flavour &amp; budget.</p>
+        </div>
+        <div class="step__arrow">→</div>
+        <div class="step">
+          <div class="step__num">02</div>
+          <h3 class="step__title">We Design &amp; Quote</h3>
+          <p class="step__desc">We'll send a custom design sketch and a transparent price quote within 24 hours.</p>
+        </div>
+        <div class="step__arrow">→</div>
+        <div class="step">
+          <div class="step__num">03</div>
+          <h3 class="step__title">Confirm &amp; Bake</h3>
+          <p class="step__desc">Confirm with a 50% deposit and we get baking with fresh, quality ingredients.</p>
+        </div>
+        <div class="step__arrow">→</div>
+        <div class="step">
+          <div class="step__num">04</div>
+          <h3 class="step__title">Deliver &amp; Celebrate!</h3>
+          <p class="step__desc">We deliver island-wide or you can pick up from Colombo. Time to celebrate!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials section">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">Sweet Words</p>
+        <h2 class="section__title">What Our Customers Say</h2>
+      </div>
+      <div class="testi__grid">
+        <div class="testi-card">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"The most beautiful cake I've ever seen! It tasted even better than it looked. My daughter's birthday was absolutely magical."</p>
+          <div class="testi-card__author">
+            <div class="testi-card__avatar">P</div>
+            <div>
+              <strong>Priya M.</strong>
+              <span>Colombo 7</span>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card testi-card--accent">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"Ordered our wedding cake and it was beyond expectations. Guests couldn't stop talking about it. Truly world-class artistry right here in Colombo!"</p>
+          <div class="testi-card__author">
+            <div class="testi-card__avatar">S</div>
+            <div>
+              <strong>Sanjay &amp; Dilini</strong>
+              <span>Newlyweds</span>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"The dessert boxes are a lifesaver for gifting. So beautifully packaged and every single bite is divine. Already ordered three times!"</p>
+          <div class="testi-card__author">
+            <div class="testi-card__avatar">A</div>
+            <div>
+              <strong>Ayesha R.</strong>
+              <span>Dehiwala</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER / CONTACT -->
+  <section class="order section" id="order">
+    <div class="container">
+      <div class="order__grid">
+        <div class="order__text">
+          <p class="section__eyebrow">Get in Touch</p>
+          <h2 class="section__title">Ready to order<br />your dream cake?</h2>
+          <p class="order__body">
+            We take orders minimum <strong>5–7 days</strong> in advance for custom
+            cakes. For weddings, please reach out at least <strong>4–6 weeks</strong> ahead.
+          </p>
+          <div class="order__channels">
+            <a href="https://www.instagram.com/cakeclubcolombo" target="_blank" rel="noopener" class="channel-btn channel-btn--instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              DM on Instagram
+            </a>
+            <a href="https://wa.me/94XXXXXXXXX" target="_blank" rel="noopener" class="channel-btn channel-btn--whatsapp">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              WhatsApp Us
+            </a>
+          </div>
+        </div>
+        <form class="order__form" id="orderForm">
+          <h3 class="order__form-title">Quick Enquiry</h3>
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Anjali Fernando" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone / WhatsApp</label>
+            <input type="tel" id="phone" name="phone" placeholder="+94 77 XXX XXXX" required />
+          </div>
+          <div class="form-group">
+            <label for="occasion">Occasion</label>
+            <select id="occasion" name="occasion" required>
+              <option value="" disabled selected>Select occasion</option>
+              <option>Birthday</option>
+              <option>Wedding</option>
+              <option>Anniversary</option>
+              <option>Baby Shower</option>
+              <option>Corporate</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="date">Event Date</label>
+            <input type="date" id="date" name="date" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Tell us your idea</label>
+            <textarea id="message" name="message" rows="3" placeholder="Flavour, size, theme, any special requests..."></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full">Send Enquiry</button>
+          <p class="form__note">We'll get back to you within 24 hours 🎂</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="#" class="nav__logo">
+            <span class="nav__logo-icon">🎂</span>
+            <span>Cake Club <em>Colombo</em></span>
+          </a>
+          <p class="footer__tagline">
+            Handcrafted cakes for every sweet moment.<br />Colombo, Sri Lanka.
+          </p>
+          <div class="footer__socials">
+            <a href="https://www.instagram.com/cakeclubcolombo" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#order">Order</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Specialties</h4>
+          <ul>
+            <li><a href="#menu">Custom Cakes</a></li>
+            <li><a href="#menu">Wedding Cakes</a></li>
+            <li><a href="#menu">Cupcakes</a></li>
+            <li><a href="#menu">Dessert Boxes</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <h4>Find Us</h4>
+          <p>Colombo, Sri Lanka</p>
+          <p>Island-wide delivery available</p>
+          <a href="https://www.instagram.com/cakeclubcolombo" target="_blank" rel="noopener" class="footer__ig">
+            @cakeclubcolombo
+          </a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2024 Cake Club Colombo. All rights reserved.</p>
+        <p>Made with 🤍 in Colombo</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
