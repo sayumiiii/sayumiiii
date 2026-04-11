@@ -353,25 +353,48 @@ p {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background: radial-gradient(ellipse at 25% 35%, #6b2040 0%, #a85570 28%, #e8a0b0 60%, #fff0f5 100%);
 }
 
-.hero__bg {
+/* Floating blurred orbs for depth */
+.hero__orb {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
 }
 
-.hero__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    160deg,
-    rgba(30,10,20,.55) 0%,
-    rgba(58,20,35,.65) 100%
-  );
+.hero__orb--1 {
+  width: 600px;
+  height: 600px;
+  top: -15%;
+  left: -10%;
+  background: rgba(168, 85, 112, .45);
+  animation: float-orb 9s ease-in-out infinite alternate;
+}
+
+.hero__orb--2 {
+  width: 420px;
+  height: 420px;
+  bottom: -15%;
+  right: -8%;
+  background: rgba(100, 25, 55, .5);
+  animation: float-orb 11s ease-in-out infinite alternate-reverse;
+}
+
+.hero__orb--3 {
+  width: 280px;
+  height: 280px;
+  top: 25%;
+  right: 12%;
+  background: rgba(249, 198, 208, .35);
+  animation: float-orb 7s ease-in-out infinite alternate;
+  animation-delay: -3s;
+}
+
+@keyframes float-orb {
+  0%   { transform: translate(0, 0)     scale(1); }
+  100% { transform: translate(24px, -24px) scale(1.06); }
 }
 
 .hero__content {
@@ -379,25 +402,26 @@ p {
   z-index: 1;
   text-align: center;
   padding-inline: var(--container-px);
-  max-width: 800px;
+  max-width: 860px;
 }
 
 .hero__eyebrow {
-  font-size: .85rem;
+  font-size: .8rem;
   font-weight: 500;
-  letter-spacing: .2em;
+  letter-spacing: .25em;
   text-transform: uppercase;
   color: var(--color-blush);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
   opacity: .9;
 }
 
 .hero__title {
-  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-size: clamp(3rem, 8vw, 6.5rem);
   color: var(--color-white);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.05;
   margin-bottom: 1.25rem;
+  text-shadow: 0 2px 30px rgba(0,0,0,.2);
 }
 
 .hero__title em {
@@ -406,11 +430,32 @@ p {
 }
 
 .hero__subtitle {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  color: rgba(255,255,255,.85);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(255,255,255,.8);
   font-weight: 300;
-  margin-bottom: 2.25rem;
-  max-width: 100%;
+  margin-bottom: 2.75rem;
+  max-width: 54ch;
+  margin-inline: auto;
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn--hero-ghost {
+  background-color: transparent;
+  color: var(--color-white);
+  border: 2px solid rgba(255,255,255,.55);
+  backdrop-filter: blur(4px);
+}
+
+.btn--hero-ghost:hover {
+  background-color: rgba(255,255,255,.15);
+  border-color: rgba(255,255,255,.8);
 }
 
 .hero__scroll-hint {
@@ -425,7 +470,7 @@ p {
 .scroll-arrow {
   display: block;
   font-size: 1.5rem;
-  color: rgba(255,255,255,.6);
+  color: rgba(255,255,255,.5);
 }
 
 @keyframes bounce {
@@ -460,20 +505,32 @@ p {
   box-shadow: var(--shadow-lg);
 }
 
-.specialty-card__image {
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
+.specialty-card__visual {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter var(--transition-base);
 }
 
-.specialty-card__image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--transition-slow);
+.specialty-card__visual--custom {
+  background: linear-gradient(135deg, #f9c6d0 0%, #e8a0b0 100%);
 }
 
-.specialty-card:hover .specialty-card__image img {
-  transform: scale(1.06);
+.specialty-card__visual--birthday {
+  background: linear-gradient(135deg, #fde8c8 0%, #f5b87a 100%);
+}
+
+.specialty-card__visual--wedding {
+  background: linear-gradient(135deg, #e8d5f0 0%, #c4a0d8 100%);
+}
+
+.specialty-card__visual--cupcakes {
+  background: linear-gradient(135deg, #c8e8d8 0%, #7abfa0 100%);
+}
+
+.specialty-card:hover .specialty-card__visual {
+  filter: brightness(1.06);
 }
 
 .specialty-card__body {
@@ -481,8 +538,9 @@ p {
 }
 
 .specialty-card__icon {
-  font-size: 1.5rem;
-  margin-bottom: .5rem;
+  font-size: 3rem;
+  line-height: 1;
+  display: block;
 }
 
 .specialty-card__body h3 {
@@ -506,69 +564,33 @@ p {
   background-color: var(--color-cream);
 }
 
-.gallery__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 280px;
-  gap: 1rem;
-}
-
-.gallery__item {
-  position: relative;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  margin: 0;
-}
-
-.gallery__item img {
+/* Behold widget container */
+.gallery__embed {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--transition-slow);
+  min-height: 320px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 
-.gallery__item:hover img {
-  transform: scale(1.05);
+/* Fallback placeholder when Behold widget hasn't been configured yet */
+.gallery__embed > div:only-child:empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
+  background: linear-gradient(135deg, #f9c6d0 0%, #fff8f0 100%);
+  border-radius: var(--radius-md);
+  border: 2px dashed var(--color-rose);
 }
 
-.gallery__item::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(249,198,208,.0);
-  transition: background var(--transition-base);
-}
-
-.gallery__item:hover::after {
-  background: rgba(249,198,208,.2);
-}
-
-.gallery__item figcaption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: .75rem 1rem;
-  background: linear-gradient(transparent, rgba(30,10,20,.7));
-  color: var(--color-white);
-  font-size: .85rem;
-  font-weight: 500;
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity var(--transition-base), transform var(--transition-base);
-}
-
-.gallery__item:hover figcaption {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.gallery__item--tall {
-  grid-row: span 2;
-}
-
-.gallery__item--wide {
-  grid-column: span 2;
+.gallery__embed > div:only-child:empty::after {
+  content: 'Connect @cakeclubcolombo at behold.so — your Instagram photos will appear here automatically';
+  color: var(--color-charcoal-lt);
+  font-size: .95rem;
+  font-style: italic;
+  text-align: center;
+  padding: 2rem;
+  max-width: 42ch;
 }
 
 .gallery__cta {
@@ -595,12 +617,44 @@ p {
   position: relative;
 }
 
-.about__image img {
+/* CSS gradient tile replacing the placeholder photo */
+.about__image-tile {
   width: 100%;
+  aspect-ratio: 8 / 9;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  aspect-ratio: 8 / 9;
-  object-fit: cover;
+  background: linear-gradient(145deg, #6b2040 0%, #a85570 35%, #e8a0b0 70%, #f9c6d0 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+.about__tile-logo {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  text-shadow: 0 2px 20px rgba(0,0,0,.2);
+}
+
+.about__tile-logo em {
+  font-style: italic;
+  color: var(--color-blush);
+}
+
+.about__tile-tagline {
+  font-family: var(--font-body);
+  font-size: .85rem;
+  font-weight: 400;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.75);
 }
 
 .about__image-badge {
@@ -787,6 +841,24 @@ p {
   max-width: 28ch;
 }
 
+.contact-card__detail {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: var(--color-charcoal) !important;
+  letter-spacing: .01em;
+}
+
+/* Single order CTA below the three info cards */
+.contact__action {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.btn--lg {
+  padding: 1.1rem 2.75rem;
+  font-size: 1.05rem;
+}
+
 .contact__location {
   text-align: center;
   display: flex;
@@ -826,7 +898,7 @@ p {
 
 .site-footer__inner {
   display: grid;
-  grid-template-columns: 2fr 1fr 1.5fr;
+  grid-template-columns: 2fr 1fr;
   gap: 3rem;
   padding-bottom: 3rem;
   border-bottom: 1px solid rgba(255,255,255,.1);
@@ -861,8 +933,7 @@ p {
   background-color: var(--color-rose-dark);
 }
 
-.site-footer__nav h4,
-.site-footer__order h4 {
+.site-footer__nav h4 {
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 600;
@@ -884,13 +955,6 @@ p {
 
 .site-footer__nav a:hover {
   color: var(--color-blush);
-}
-
-.site-footer__order p {
-  font-size: .9rem;
-  color: rgba(255,255,255,.6);
-  margin-bottom: 1.25rem;
-  max-width: 32ch;
 }
 
 .site-footer__bottom {
@@ -966,10 +1030,6 @@ p {
   .site-footer__inner {
     grid-template-columns: 1fr 1fr;
   }
-
-  .site-footer__brand {
-    grid-column: span 2;
-  }
 }
 
 /* Mobile: ≤ 768px */
@@ -1014,16 +1074,6 @@ p {
     grid-template-columns: 1fr;
   }
 
-  /* Gallery */
-  .gallery__grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 200px;
-  }
-
-  .gallery__item--wide {
-    grid-column: span 2;
-  }
-
   /* About */
   .about__inner {
     grid-template-columns: 1fr;
@@ -1049,10 +1099,6 @@ p {
     gap: 2rem;
   }
 
-  .site-footer__brand {
-    grid-column: auto;
-  }
-
   .site-footer__bottom {
     flex-direction: column;
     gap: .5rem;
@@ -1062,17 +1108,6 @@ p {
 
 /* Small mobile: ≤ 480px */
 @media (max-width: 480px) {
-  .gallery__grid {
-    grid-template-columns: 1fr;
-    grid-auto-rows: 240px;
-  }
-
-  .gallery__item--wide,
-  .gallery__item--tall {
-    grid-column: auto;
-    grid-row: auto;
-  }
-
   .about__image-badge {
     position: static;
     display: inline-block;
