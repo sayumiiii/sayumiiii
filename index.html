@@ -42,25 +42,27 @@
 
     <!-- ===== HERO ===== -->
     <section id="home" class="hero">
-      <div class="hero__overlay"></div>
-      <img
-        class="hero__bg"
-        src="https://picsum.photos/seed/cakesbanner/1600/900"
-        alt="Beautiful artisan cake"
-        fetchpriority="high"
-      />
+      <div class="hero__orb hero__orb--1" aria-hidden="true"></div>
+      <div class="hero__orb hero__orb--2" aria-hidden="true"></div>
+      <div class="hero__orb hero__orb--3" aria-hidden="true"></div>
       <div class="hero__content">
-        <p class="hero__eyebrow">Handcrafted with Love in Colombo</p>
+        <p class="hero__eyebrow">&#10022; Handcrafted with Love in Colombo &#10022;</p>
         <h1 class="hero__title">Every Slice Tells<br /><em>A Story</em></h1>
-        <p class="hero__subtitle">Bespoke cakes for life's sweetest moments</p>
-        <a
-          href="https://wa.me/94767840157"
-          class="btn btn--primary"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Order via WhatsApp
-        </a>
+        <p class="hero__subtitle">Bespoke cakes for life's sweetest moments — made from scratch, crafted with passion.</p>
+        <div class="hero__actions">
+          <a
+            href="https://wa.me/94767840157"
+            class="btn btn--whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Order via WhatsApp
+          </a>
+          <a href="#gallery" class="btn btn--hero-ghost">See Our Cakes &#8595;</a>
+        </div>
       </div>
       <a href="#specialties" class="hero__scroll-hint" aria-label="Scroll down">
         <span class="scroll-arrow">&#8595;</span>
@@ -78,44 +80,40 @@
         <div class="specialties__grid">
 
           <article class="specialty-card reveal">
-            <div class="specialty-card__image">
-              <img src="https://picsum.photos/seed/customcake42/480/360" alt="Custom Cakes" loading="lazy" />
+            <div class="specialty-card__visual specialty-card__visual--custom">
+              <span class="specialty-card__icon">&#10024;</span>
             </div>
             <div class="specialty-card__body">
-              <div class="specialty-card__icon">&#10024;</div>
               <h3>Custom Cakes</h3>
               <p>Tailored to your vision — any flavour, any design, any dream. Bring us your idea and we'll craft it into reality.</p>
             </div>
           </article>
 
           <article class="specialty-card reveal">
-            <div class="specialty-card__image">
-              <img src="https://picsum.photos/seed/birthdaycake7/480/360" alt="Birthday Cakes" loading="lazy" />
+            <div class="specialty-card__visual specialty-card__visual--birthday">
+              <span class="specialty-card__icon">&#127874;</span>
             </div>
             <div class="specialty-card__body">
-              <div class="specialty-card__icon">&#127874;</div>
               <h3>Birthday Cakes</h3>
               <p>Make birthdays unforgettable with a showstopping cake that's as unique as the person celebrating.</p>
             </div>
           </article>
 
           <article class="specialty-card reveal">
-            <div class="specialty-card__image">
-              <img src="https://picsum.photos/seed/weddingcake5/480/360" alt="Wedding Cakes" loading="lazy" />
+            <div class="specialty-card__visual specialty-card__visual--wedding">
+              <span class="specialty-card__icon">&#128141;</span>
             </div>
             <div class="specialty-card__body">
-              <div class="specialty-card__icon">&#128141;</div>
               <h3>Wedding Cakes</h3>
               <p>Elegant, timeless, and delicious. The centrepiece your special day deserves, crafted with love.</p>
             </div>
           </article>
 
           <article class="specialty-card reveal">
-            <div class="specialty-card__image">
-              <img src="https://picsum.photos/seed/cupcakes99/480/360" alt="Cupcakes" loading="lazy" />
+            <div class="specialty-card__visual specialty-card__visual--cupcakes">
+              <span class="specialty-card__icon">&#129361;</span>
             </div>
             <div class="specialty-card__body">
-              <div class="specialty-card__icon">&#129361;</div>
               <h3>Cupcakes &amp; Treats</h3>
               <p>Perfectly portioned, beautifully decorated cupcakes and sweet treats for any gathering or gifting.</p>
             </div>
@@ -131,56 +129,22 @@
         <div class="section-header reveal">
           <span class="section-eyebrow">Our Portfolio</span>
           <h2 class="section-title">A Feast for the Eyes</h2>
-          <p class="section-subtitle">A glimpse into our world of sugar, cream, and artistry.</p>
+          <p class="section-subtitle">Our latest creations — updated every time we post on Instagram.</p>
         </div>
-        <div class="gallery__grid">
-
-          <figure class="gallery__item gallery__item--tall reveal">
-            <img src="https://picsum.photos/seed/cake001/600/900" alt="Artisan layer cake" loading="lazy" />
-            <figcaption>Floral Layer Cake</figcaption>
-          </figure>
-
-          <figure class="gallery__item reveal">
-            <img src="https://picsum.photos/seed/cake002/600/450" alt="Chocolate drip cake" loading="lazy" />
-            <figcaption>Chocolate Drip Cake</figcaption>
-          </figure>
-
-          <figure class="gallery__item reveal">
-            <img src="https://picsum.photos/seed/cake003/600/450" alt="Pastel wedding cake" loading="lazy" />
-            <figcaption>Pastel Wedding Cake</figcaption>
-          </figure>
-
-          <figure class="gallery__item reveal">
-            <img src="https://picsum.photos/seed/cake004/600/450" alt="Cupcake bouquet" loading="lazy" />
-            <figcaption>Cupcake Bouquet</figcaption>
-          </figure>
-
-          <figure class="gallery__item gallery__item--wide reveal">
-            <img src="https://picsum.photos/seed/cake005/1200/450" alt="Birthday celebration cake" loading="lazy" />
-            <figcaption>Birthday Celebration Cake</figcaption>
-          </figure>
-
-          <figure class="gallery__item reveal">
-            <img src="https://picsum.photos/seed/cake006/600/450" alt="Vanilla rose cake" loading="lazy" />
-            <figcaption>Vanilla Rose Cake</figcaption>
-          </figure>
-
-          <figure class="gallery__item reveal">
-            <img src="https://picsum.photos/seed/cake007/600/450" alt="Fruit tart" loading="lazy" />
-            <figcaption>Fresh Fruit Tart</figcaption>
-          </figure>
-
-          <figure class="gallery__item gallery__item--tall reveal">
-            <img src="https://picsum.photos/seed/cake008/600/900" alt="Tiered wedding cake" loading="lazy" />
-            <figcaption>Tiered Wedding Cake</figcaption>
-          </figure>
-
-          <figure class="gallery__item reveal">
-            <img src="https://picsum.photos/seed/cake009/600/450" alt="Macaron tower" loading="lazy" />
-            <figcaption>Macaron Tower</figcaption>
-          </figure>
-
+        <!-- ── INSTAGRAM FEED ──────────────────────────────────────
+             Your live Instagram photos will appear here automatically.
+             To set it up:
+             1. Go to https://behold.so and sign up for free
+             2. Connect your @cakeclubcolombo Instagram account
+             3. Create a widget, choose a grid layout
+             4. Copy the widget ID (e.g. ABCD1234XYZ)
+             5. Replace "PASTE_YOUR_BEHOLD_WIDGET_ID_HERE" below with it
+        ──────────────────────────────────────────────────────────── -->
+        <div class="gallery__embed">
+          <div id="behold-widget-PASTE_YOUR_BEHOLD_WIDGET_ID_HERE"></div>
         </div>
+        <script src="https://w.behold.so/widget.js" type="module"></script>
+
         <div class="gallery__cta reveal">
           <a
             href="https://www.instagram.com/cakeclubcolombo/"
@@ -188,13 +152,12 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            <!-- Instagram SVG -->
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
               <circle cx="12" cy="12" r="4"/>
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
             </svg>
-            See More on Instagram
+            Follow @cakeclubcolombo on Instagram
           </a>
         </div>
       </div>
@@ -205,7 +168,10 @@
       <div class="container">
         <div class="about__inner">
           <div class="about__image reveal">
-            <img src="https://picsum.photos/seed/bakery77/640/720" alt="Cake Club Colombo kitchen" loading="lazy" />
+            <div class="about__image-tile">
+              <span class="about__tile-logo">Cake Club<br /><em>Colombo</em></span>
+              <span class="about__tile-tagline">Handcrafted with Love</span>
+            </div>
             <div class="about__image-badge">Est. Colombo, Sri Lanka</div>
           </div>
           <div class="about__content reveal">
@@ -313,53 +279,50 @@
         <div class="contact__grid">
 
           <div class="contact-card reveal">
-            <!-- WhatsApp SVG -->
             <svg class="contact-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
             <h3>WhatsApp</h3>
-            <p>The quickest way to place an order or ask us anything. We respond fast!</p>
-            <a
-              href="https://wa.me/94767840157"
-              class="btn btn--whatsapp"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Chat on WhatsApp</a>
+            <p class="contact-card__detail">+94 76 784 0157</p>
           </div>
 
           <div class="contact-card reveal">
-            <!-- Instagram SVG -->
             <svg class="contact-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
               <circle cx="12" cy="12" r="4"/>
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
             </svg>
             <h3>Instagram</h3>
-            <p>Follow our feed for daily inspiration, new creations, and behind-the-scenes baking moments.</p>
-            <a
-              href="https://www.instagram.com/cakeclubcolombo/"
-              class="btn btn--outline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >@cakeclubcolombo</a>
+            <p class="contact-card__detail">@cakeclubcolombo</p>
           </div>
 
           <div class="contact-card reveal">
-            <!-- Email SVG -->
             <svg class="contact-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2" y="4" width="20" height="16" rx="2"/>
               <polyline points="2,4 12,13 22,4"/>
             </svg>
             <h3>Email</h3>
-            <p>For detailed enquiries, quotes, or to discuss your dream cake, drop us an email.</p>
-            <a href="mailto:sayumihasanjali@icloud.com" class="btn btn--outline">sayumihasanjali@icloud.com</a>
+            <p class="contact-card__detail">sayumihasanjali@icloud.com</p>
           </div>
 
         </div>
 
+        <div class="contact__action reveal">
+          <a
+            href="https://wa.me/94767840157"
+            class="btn btn--whatsapp btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Start Your Order on WhatsApp
+          </a>
+        </div>
+
         <div class="contact__location reveal">
           <div class="location-info">
-            <!-- Pin SVG -->
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
               <circle cx="12" cy="10" r="3"/>
@@ -405,19 +368,9 @@
             <li><a href="#contact">Contact</a></li>
           </ul>
         </nav>
-        <div class="site-footer__order">
-          <h4>Place an Order</h4>
-          <p>Ready to create something beautiful? Order via WhatsApp for the fastest response.</p>
-          <a
-            href="https://wa.me/94767840157"
-            class="btn btn--whatsapp"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Order Now</a>
-        </div>
       </div>
       <div class="site-footer__bottom">
-        <p>&copy; 2024 Cake Club Colombo. All rights reserved.</p>
+        <p>&copy; 2025 Cake Club Colombo. All rights reserved.</p>
         <p>Made with &#10084; in Colombo, Sri Lanka</p>
       </div>
     </div>
