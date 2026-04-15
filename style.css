@@ -312,6 +312,27 @@ p {
   width: 100%;
 }
 
+/* Instagram handle in navbar */
+.nav-instagram {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--color-rose-dark);
+  transition: color var(--transition-fast), opacity var(--transition-fast);
+  margin-left: .25rem;
+}
+
+.nav-instagram:hover {
+  color: var(--color-rose-deep);
+  opacity: .85;
+}
+
+.nav-instagram svg {
+  flex-shrink: 0;
+}
+
 /* Hamburger */
 .nav-toggle {
   display: none;
