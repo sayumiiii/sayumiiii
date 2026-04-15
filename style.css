@@ -527,27 +527,54 @@ p {
 }
 
 .specialty-card__visual {
-  height: 160px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
   transition: filter var(--transition-base);
 }
 
+/* Decorative circles for depth */
+.specialty-card__visual::before {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.18);
+  top: -40px;
+  right: -40px;
+  pointer-events: none;
+}
+
+.specialty-card__visual::after {
+  content: '';
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  bottom: -30px;
+  left: -20px;
+  pointer-events: none;
+}
+
 .specialty-card__visual--custom {
-  background: linear-gradient(135deg, #f9c6d0 0%, #e8a0b0 100%);
+  background: linear-gradient(145deg, #fad4de 0%, #e8a0b0 55%, #c4778a 100%);
 }
 
 .specialty-card__visual--birthday {
-  background: linear-gradient(135deg, #fde8c8 0%, #f5b87a 100%);
+  background: linear-gradient(145deg, #fef0d8 0%, #f5c87a 55%, #e89940 100%);
 }
 
 .specialty-card__visual--wedding {
-  background: linear-gradient(135deg, #e8d5f0 0%, #c4a0d8 100%);
+  background: linear-gradient(145deg, #ede8f8 0%, #c4a0d8 55%, #9b6dc8 100%);
 }
 
 .specialty-card__visual--cupcakes {
-  background: linear-gradient(135deg, #c8e8d8 0%, #7abfa0 100%);
+  background: linear-gradient(145deg, #d8f0e8 0%, #7abfa0 55%, #4a9a78 100%);
 }
 
 .specialty-card:hover .specialty-card__visual {
@@ -559,9 +586,12 @@ p {
 }
 
 .specialty-card__icon {
-  font-size: 3rem;
+  font-size: 4rem;
   line-height: 1;
   display: block;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,.15));
 }
 
 .specialty-card__body h3 {
@@ -1078,19 +1108,55 @@ p {
     font-size: 1.15rem;
   }
 
-  /* Hero */
-  .hero__title {
-    font-size: clamp(2.5rem, 10vw, 4rem);
+  /* Hide instagram handle text in nav — keep icon only */
+  .nav-instagram span {
+    display: none;
   }
 
-  /* Specialties */
+  .nav-instagram {
+    margin-left: 0;
+    padding: .25rem;
+  }
+
+  /* Hero */
+  .hero__title {
+    font-size: clamp(2.2rem, 9vw, 3.5rem);
+  }
+
+  .hero__subtitle {
+    font-size: .95rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Hero buttons full width on mobile */
+  .hero__actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+
+  /* Specialties — 2 columns on mobile */
   .specialties__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   /* About */
   .about__inner {
     grid-template-columns: 1fr;
+  }
+
+  /* Shrink the "Cake Club Colombo" tile on mobile */
+  .about__image-tile {
+    aspect-ratio: 3 / 2;
+  }
+
+  .about__tile-logo {
+    font-size: clamp(1.4rem, 6vw, 2rem);
   }
 
   .about__image-badge {
@@ -1127,10 +1193,19 @@ p {
 
 /* Small mobile: ≤ 480px */
 @media (max-width: 480px) {
+  /* Specialty cards stack to 1 column on very small screens */
+  .specialties__grid {
+    grid-template-columns: 1fr;
+  }
+
   .about__image-badge {
     position: static;
     display: inline-block;
     margin-top: 1rem;
+  }
+
+  .about__tile-logo {
+    font-size: 1.4rem;
   }
 
   .whatsapp-float {
