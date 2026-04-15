@@ -585,33 +585,22 @@ p {
   background-color: var(--color-cream);
 }
 
-/* Behold widget container */
-.gallery__embed {
-  width: 100%;
-  min-height: 320px;
-  border-radius: var(--radius-md);
+/* Instagram posts grid */
+.gallery__instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.gallery__instagram-grid > div {
+  min-width: 0;
   overflow: hidden;
-}
-
-/* Fallback placeholder when Behold widget hasn't been configured yet */
-.gallery__embed > div:only-child:empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 360px;
-  background: linear-gradient(135deg, #f9c6d0 0%, #fff8f0 100%);
   border-radius: var(--radius-md);
-  border: 2px dashed var(--color-rose);
+  box-shadow: var(--shadow-sm);
 }
 
-.gallery__embed > div:only-child:empty::after {
-  content: 'Connect @cakeclubcolombo at behold.so — your Instagram photos will appear here automatically';
-  color: var(--color-charcoal-lt);
-  font-size: .95rem;
-  font-style: italic;
-  text-align: center;
-  padding: 2rem;
-  max-width: 42ch;
+.gallery__instagram-grid .instagram-media {
+  margin: 0 !important;
 }
 
 .gallery__cta {
@@ -1051,6 +1040,10 @@ p {
   .site-footer__inner {
     grid-template-columns: 1fr 1fr;
   }
+
+  .gallery__instagram-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Mobile: ≤ 768px */
@@ -1102,6 +1095,11 @@ p {
 
   .about__image-badge {
     right: 0;
+  }
+
+  /* Gallery */
+  .gallery__instagram-grid {
+    grid-template-columns: 1fr;
   }
 
   /* Testimonials */
