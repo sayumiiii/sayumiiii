@@ -6,11 +6,9 @@
 
 ## <picture><img src = "https://github.com/0xAbdulKhalid/0xAbdulKhalid/raw/main/assets/mdImages/about_me.gif" width = 50px></picture> **About me**
 
-<picture> <img align="right" src="https://github.com/0xAbdulKhalid/0xAbdulKhalid/raw/main/assets/mdImages/Right_Side.gif" width = 250px></picture>
 
-- :school: I am a `Junior` at Faculty of Science and Technology at Conestoga College
 - :technologist: I love using Software as a solution for every `Problem`
-- :computer: I am a competitive programmer and an UI/UX Designer
+- :computer: I am a competitive programmer and an UI/UX Designer and a marketier
 - :student: I’m currently learning: `IT Innovation and Design`.
 - :thinking: I’m currently open for: `An Intern` or a new `job opportunity`, this is my [Porfolio](https://sayumiiii.github.io/portfolio/). Check it out.
 - :nerd_face: Always `learning new things`
