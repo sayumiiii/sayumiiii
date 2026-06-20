@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Kitchen Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f0f4f8;
+      --white: #ffffff;
+      --text: #1a2332;
+      --muted: #6b7a8d;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 6px 24px rgba(0,0,0,0.12);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.18);
+      --r-sm: 10px;
+      --r-md: 16px;
+      --r-lg: 22px;
+
+      /* Fridge palette */
+      --fr-bg: linear-gradient(175deg, #c6dde9 0%, #daeaf4 7%, #edf6fb 100%);
+      --fr-border: #8fb8d0;
+      --fr-freezer: #bacfe0;
+      --fr-line: #9bbdd2;
+
+      /* Pantry palette */
+      --pa-bg: #f8f0e2;
+      --pa-wood: #9a6940;
+      --pa-dark-wood: #7a4f28;
+      --pa-shelf: #8c5e32;
+
+      /* Grocery palette */
+      --gr-bg: #fffbe8;
+      --gr-line: #e8d070;
+      --gr-hole: #f0e8c8;
+
+      /* Actions */
+      --green: #3bb87a;
+      --red:   #e55c5c;
+      --amber: #f0a030;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* ===========================
+       HEADER
+    =========================== */
+    .app-header {
+      background: var(--white);
+      padding: 0 32px;
+      height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.07), var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 60;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-logo h1 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .header-logo .logo-icon { font-size: 1.7rem; }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-sub {
+      font-size: 0.76rem;
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .header-badge {
+      background: var(--red);
+      color: white;
+      border-radius: 50px;
+      padding: 3px 12px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      display: none;
+      animation: pulse 2s ease infinite;
+    }
+
+    .header-badge.visible { display: inline-block; }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(229,92,92,0.4); }
+      50% { box-shadow: 0 0 0 6px rgba(229,92,92,0); }
+    }
+
+    /* ===========================
+       MAIN GRID
+    =========================== */
+    .app-main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "fridge pantry"
+        "grocery grocery";
+      gap: 24px;
+    }
+
+    .section-wrapper { display: flex; flex-direction: column; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 0 2px;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .section-count {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    /* ===========================
+       FRIDGE
+    =========================== */
+    .fridge-wrapper { grid-area: fridge; }
+
+    .fridge {
+      background: var(--fr-bg);
+      border-radius: var(--r-lg);
+      border: 3.5px solid var(--fr-border);
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        inset 3px 3px 14px rgba(255,255,255,0.85),
+        inset -1px -1px 8px rgba(80,130,160,0.12),
+        var(--shadow-md);
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Chrome handle */
+    .fridge-handle {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 9px;
+      height: 88px;
+      background: linear-gradient(90deg,
+        #7a95a8 0%,
+        #c0d4de 35%,
+        #daeaf0 55%,
+        #b8cdd8 75%,
+        #7a95a8 100%);
+      border-radius: 5px;
+      box-shadow: 1px 2px 6px rgba(0,0,0,0.28), inset 0 1px 2px rgba(255,255,255,0.6);
+      z-index: 5;
+    }
+
+    /* LED light dot */
+    .fridge-led {
+      position: absolute;
+      top: 11px;
+      right: 14px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #90e0a0;
+      box-shadow: 0 0 8px #60d080;
+    }
+
+    /* Freezer section */
+    .fridge-freezer {
+      background: linear-gradient(180deg, #aacbdc 0%, #c0d8e8 100%);
+      padding: 12px 16px 12px 36px;
+      border-bottom: 3px solid var(--fr-line);
+      flex-shrink: 0;
+    }
+
+    .fridge-freezer-label {
+      font-size: 0.6rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #4a7a98;
+      margin-bottom: 6px;
+    }
+
+    .freezer-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      min-height: 18px;
+    }
+
+    .freezer-chip {
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 5px;
+      padding: 2px 7px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #4a7a98;
+    }
+
+    /* Main fridge body */
+    .fridge-body {
+      padding: 14px 14px 14px 36px;
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      max-height: 440px;
+    }
+
+    .fridge-body::-webkit-scrollbar { width: 4px; }
+    .fridge-body::-webkit-scrollbar-thumb {
+      background: rgba(100,140,160,0.3);
+      border-radius: 4px;
+    }
+
+    .fridge-body-label {
+      font-size: 0.6rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #4a7a98;
+      margin-bottom: 10px;
+    }
+
+    /* ===========================
+       PANTRY
+    =========================== */
+    .pantry-wrapper { grid-area: pantry; }
+
+    .pantry {
+      background: var(--pa-bg);
+      border-radius: 14px;
+      border: 7px solid var(--pa-wood);
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        inset 0 0 24px rgba(154,105,64,0.07),
+        var(--shadow-md);
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Crown / top bar */
+    .pantry-crown {
+      background: linear-gradient(180deg, var(--pa-dark-wood) 0%, var(--pa-wood) 100%);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border-bottom: 2px solid rgba(0,0,0,0.18);
+      flex-shrink: 0;
+    }
+
+    .pantry-crown-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.28);
+    }
+
+    .pantry-crown-label {
+      font-size: 0.6rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .pantry-body {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      max-height: 462px;
+    }
+
+    .pantry-body::-webkit-scrollbar { width: 4px; }
+    .pantry-body::-webkit-scrollbar-thumb {
+      background: rgba(154,105,64,0.3);
+      border-radius: 4px;
+    }
+
+    /* Shelf rows */
+    .pantry-shelf {
+      padding: 12px 14px;
+      position: relative;
+    }
+
+    .pantry-shelf + .pantry-shelf {
+      border-top: none;
+    }
+
+    /* Shelf board */
+    .pantry-shelf-board {
+      position: relative;
+      padding-bottom: 18px;
+    }
+
+    .pantry-shelf-board::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -14px;
+      right: -14px;
+      height: 8px;
+      background: linear-gradient(180deg, var(--pa-shelf) 0%, var(--pa-dark-wood) 100%);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.22);
+    }
+
+    .pantry-shelf:last-child .pantry-shelf-board::after {
+      display: none;
+    }
+
+    .pantry-shelf-label {
+      font-size: 0.58rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pa-dark-wood);
+      opacity: 0.5;
+      margin-bottom: 7px;
+    }
+
+    /* ===========================
+       ITEM CARDS
+    =========================== */
+    .items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .item-card {
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(8px);
+      border-radius: 11px;
+      padding: 8px 11px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,0.94);
+      box-shadow: 0 1px 5px rgba(0,0,0,0.06);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      position: relative;
+      animation: popIn 0.22s ease;
+    }
+
+    .pantry-wrapper .item-card {
+      background: rgba(255,252,244,0.88);
+      border-color: rgba(154,105,64,0.14);
+    }
+
+    .item-card:hover {
+      transform: translateX(3px);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.9) translateY(-4px); }
+      60%  { transform: scale(1.02) translateY(1px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .item-emoji {
+      font-size: 1.25rem;
+      width: 26px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-name {
+      font-size: 0.83rem;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-unit {
+      font-size: 0.65rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .item-controls {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .qty-btn {
+      width: 25px;
+      height: 25px;
+      border: none;
+      border-radius: 7px;
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.1s ease, background 0.14s ease;
+      font-family: 'Nunito', sans-serif;
+      line-height: 1;
+    }
+
+    .qty-btn:active { transform: scale(0.82); }
+
+    .qty-minus { background: #fde4e4; color: var(--red); }
+    .qty-minus:hover { background: #fccece; }
+
+    .qty-plus  { background: #e4f5ec; color: var(--green); }
+    .qty-plus:hover  { background: #cdeedd; }
+
+    .qty-num {
+      font-size: 0.9rem;
+      font-weight: 900;
+      min-width: 20px;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .qty-num.warn   { color: var(--amber); }
+    .qty-num.danger { color: var(--red); }
+
+    .item-delete {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      width: 18px;
+      height: 18px;
+      background: #f0f0f0;
+      border: 1.5px solid #ddd;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.6rem;
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.15s, color 0.15s, background 0.15s;
+    }
+
+    .item-card:hover .item-delete { opacity: 1; }
+    .item-delete:hover { color: var(--red); background: #fde4e4; border-color: #fcc; }
+
+    /* ===========================
+       ADD BUTTON
+    =========================== */
+    .add-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.5);
+      border: 2px dashed rgba(0,0,0,0.13);
+      border-radius: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+      width: 100%;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--muted);
+      margin-top: 8px;
+      transition: all 0.16s ease;
+    }
+
+    .add-btn:hover {
+      background: rgba(255,255,255,0.82);
+      border-color: rgba(0,0,0,0.22);
+      color: var(--text);
+      transform: translateX(2px);
+    }
+
+    .fridge-add-wrap { padding: 0 14px 14px 36px; }
+    .pantry-add-wrap { padding: 0 14px 14px; }
+
+    /* ===========================
+       GROCERY LIST
+    =========================== */
+    .grocery-wrapper { grid-area: grocery; }
+
+    .grocery {
+      background: var(--gr-bg);
+      border-radius: var(--r-lg);
+      border: 2px solid var(--gr-line);
+      padding: 26px 28px 28px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ruled left margin line */
+    .grocery::before {
+      content: '';
+      position: absolute;
+      left: 58px;
+      top: 0; bottom: 0;
+      width: 1.5px;
+      background: rgba(210,170,50,0.28);
+    }
+
+    .grocery-holes {
+      position: absolute;
+      left: 22px;
+      top: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 20px 0;
+    }
+
+    .grocery-hole {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1.5px solid var(--gr-line);
+    }
+
+    .grocery-inner { padding-left: 14px; }
+
+    .grocery-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .grocery-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .grocery-badge-count {
+      background: var(--red);
+      color: white;
+      border-radius: 50px;
+      padding: 2px 10px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      display: none;
+    }
+
+    .grocery-badge-count.on { display: inline-block; }
+
+    .grocery-actions {
+      margin-left: auto;
+    }
+
+    .clear-btn {
+      background: none;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      padding: 5px 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .clear-btn:hover { border-color: var(--red); color: var(--red); }
+
+    .grocery-empty {
+      text-align: center;
+      padding: 28px 0;
+      color: var(--muted);
+    }
+
+    .grocery-empty .empty-icon { font-size: 2.8rem; display: block; margin-bottom: 8px; }
+    .grocery-empty p { font-size: 0.86rem; font-weight: 700; }
+
+    .grocery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+      gap: 10px;
+    }
+
+    .grocery-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 11px 13px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: transform 0.16s ease;
+    }
+
+    .grocery-card:hover { transform: translateY(-2px); }
+
+    .grocery-card-emoji { font-size: 1.2rem; flex-shrink: 0; }
+
+    .grocery-card-info { flex: 1; min-width: 0; }
+
+    .grocery-card-name {
+      font-size: 0.83rem;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .grocery-card-loc {
+      font-size: 0.64rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .restock-btn {
+      background: #e4f5ec;
+      border: none;
+      border-radius: 8px;
+      padding: 5px 9px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--green);
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      white-space: nowrap;
+      transition: background 0.14s;
+    }
+
+    .restock-btn:hover { background: #cdeedd; }
+
+    /* ===========================
+       MODAL
+    =========================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,25,45,0.48);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: 22px;
+      padding: 30px;
+      width: 420px;
+      max-width: calc(100vw - 36px);
+      max-height: calc(100vh - 60px);
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      transform: scale(0.9) translateY(12px);
+      transition: transform 0.22s ease;
+    }
+
+    .modal-overlay.open .modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .modal-title-text {
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+
+    .modal-close {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: #f0f2f4;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      transition: background 0.14s, color 0.14s;
+    }
+
+    .modal-close:hover { background: #fde4e4; color: var(--red); }
+
+    .form-field { margin-bottom: 16px; }
+
+    .form-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 9px 13px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      background: white;
+      outline: none;
+      transition: border-color 0.14s, box-shadow 0.14s;
+    }
+
+    .form-input:focus {
+      border-color: #6a9ab8;
+      box-shadow: 0 0 0 3px rgba(106,154,184,0.14);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .emoji-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .emoji-opt {
+      width: 36px;
+      height: 36px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f7f9;
+      transition: all 0.12s;
+    }
+
+    .emoji-opt:hover { border-color: #9ab8cc; background: white; }
+
+    .emoji-opt.picked {
+      border-color: #5a90b0;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(90,144,176,0.18);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 11px;
+      background: var(--text);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: background 0.14s, transform 0.1s;
+      margin-top: 4px;
+    }
+
+    .btn-submit:hover { background: #2a3a52; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* ===========================
+       TOAST
+    =========================== */
+    .toast {
+      position: fixed;
+      bottom: 26px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--text);
+      color: white;
+      padding: 11px 22px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      box-shadow: var(--shadow-lg);
+      z-index: 300;
+      opacity: 0;
+      transition: opacity 0.28s ease, transform 0.28s ease;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+    @media (max-width: 700px) {
+      .app-main {
+        grid-template-columns: 1fr;
+        grid-template-areas: "fridge" "pantry" "grocery";
+        padding: 18px 14px 40px;
+      }
+      .app-header { padding: 0 16px; }
+      .header-sub { display: none; }
+      .grocery { padding: 22px 18px; }
+      .grocery-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 420px) {
+      .grocery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================== HEADER ======================== -->
+  <header class="app-header">
+    <div class="header-logo">
+      <span class="logo-icon">🧺</span>
+      <h1>My Kitchen</h1>
+    </div>
+    <div class="header-right">
+      <span class="header-sub">Track · Stock · Shop</span>
+      <span class="header-badge" id="headerBadge">0 to buy</span>
+    </div>
+  </header>
+
+  <!-- ======================== MAIN ======================== -->
+  <main class="app-main">
+
+    <!-- ====== FRIDGE ====== -->
+    <div class="section-wrapper fridge-wrapper">
+      <div class="section-header">
+        <span class="section-label">❄️ Fridge</span>
+        <span class="section-count" id="fridge-count"></span>
+      </div>
+      <div class="fridge">
+        <div class="fridge-handle"></div>
+        <div class="fridge-led"></div>
+        <div class="fridge-freezer">
+          <div class="fridge-freezer-label">Freezer</div>
+          <div class="freezer-chips" id="freezer-chips">
+            <span class="freezer-chip">Ice</span>
+            <span class="freezer-chip">Frozen Peas</span>
+          </div>
+        </div>
+        <div class="fridge-body" id="fridge-body">
+          <div class="fridge-body-label">Refrigerator</div>
+          <div class="items-list" id="fridge-list"></div>
+        </div>
+        <div class="fridge-add-wrap">
+          <button class="add-btn" onclick="openModal('fridge')">
+            ＋ Add to Fridge
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== PANTRY ====== -->
+    <div class="section-wrapper pantry-wrapper">
+      <div class="section-header">
+        <span class="section-label">🪵 Pantry</span>
+        <span class="section-count" id="pantry-count"></span>
+      </div>
+      <div class="pantry">
+        <div class="pantry-crown">
+          <div class="pantry-crown-dot"></div>
+          <div class="pantry-crown-dot"></div>
+          <div class="pantry-crown-label">My Pantry</div>
+        </div>
+        <div class="pantry-body" id="pantry-body"></div>
+        <div class="pantry-add-wrap">
+          <button class="add-btn" onclick="openModal('pantry')">
+            ＋ Add to Pantry
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== GROCERY LIST ====== -->
+    <div class="section-wrapper grocery-wrapper">
+      <div class="section-header">
+        <span class="section-label">🛒 Shopping List</span>
+      </div>
+      <div class="grocery">
+        <div class="grocery-holes">
+          <div class="grocery-hole"></div>
+          <div class="grocery-hole"></div>
+          <div class="grocery-hole"></div>
+          <div class="grocery-hole"></div>
+          <div class="grocery-hole"></div>
+        </div>
+        <div class="grocery-inner">
+          <div class="grocery-top">
+            <span class="grocery-title">
+              Need to Buy
+              <span class="grocery-badge-count" id="groceryCount"></span>
+            </span>
+            <div class="grocery-actions">
+              <button class="clear-btn" onclick="restockAll()">✓ Restock All</button>
+            </div>
+          </div>
+          <div id="grocery-body"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ======================== MODAL ======================== -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-head">
+        <span class="modal-title-text" id="modal-title">Add Item</span>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">Pick an Emoji</label>
+        <div class="emoji-grid" id="emoji-grid"></div>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">Item Name</label>
+        <input type="text" class="form-input" id="input-name" placeholder="e.g. Greek Yogurt" maxlength="30">
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label">Quantity</label>
+          <input type="number" class="form-input" id="input-qty" min="1" max="99" value="1">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Unit (optional)</label>
+          <input type="text" class="form-input" id="input-unit" placeholder="e.g. bottle, kg">
+        </div>
+      </div>
+
+      <button class="btn-submit" onclick="submitItem()">Add Item</button>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // CONFIG
+    // ============================================================
+
+    const EMOJIS = [
+      '🥛','🥚','🧈','🧀','🫙','🍊','🥕','🥦','🍋','🥩','🐟','🍇',
+      '🍞','🍚','🍝','🫒','🧂','🧄','🧅','🥫','☕','🫖','🍯','🌾',
+      '🥑','🍅','🫑','🥬','🍎','🧆','🥜','🍫','🧃','🥤','🌶️','🫚',
+      '🥐','🍳','🍕','🧇','🥗','🫐','🍓','🥝','🍌'
+    ];
+
+    const DEFAULT_FRIDGE = [
+      { id:'f1',  name:'Milk',         emoji:'🥛', qty:2,  dqty:2,  unit:'bottle' },
+      { id:'f2',  name:'Eggs',         emoji:'🥚', qty:12, dqty:12, unit:'' },
+      { id:'f3',  name:'Butter',       emoji:'🧈', qty:1,  dqty:1,  unit:'pack' },
+      { id:'f4',  name:'Cheese',       emoji:'🧀', qty:1,  dqty:1,  unit:'block' },
+      { id:'f5',  name:'Yogurt',       emoji:'🫙', qty:4,  dqty:4,  unit:'cup' },
+      { id:'f6',  name:'Orange Juice', emoji:'🍊', qty:1,  dqty:1,  unit:'carton' },
+      { id:'f7',  name:'Carrots',      emoji:'🥕', qty:6,  dqty:6,  unit:'' },
+      { id:'f8',  name:'Broccoli',     emoji:'🥦', qty:1,  dqty:1,  unit:'head' },
+      { id:'f9',  name:'Lemons',       emoji:'🍋', qty:4,  dqty:4,  unit:'' },
+      { id:'f10', name:'Cream',        emoji:'🥛', qty:1,  dqty:1,  unit:'carton' },
+    ];
+
+    const DEFAULT_PANTRY = [
+      { id:'p1',  name:'Bread',           emoji:'🍞', qty:1,  dqty:1,  unit:'loaf' },
+      { id:'p2',  name:'Rice',            emoji:'🍚', qty:2,  dqty:2,  unit:'kg' },
+      { id:'p3',  name:'Pasta',           emoji:'🍝', qty:3,  dqty:4,  unit:'pack' },
+      { id:'p4',  name:'Olive Oil',       emoji:'🫒', qty:1,  dqty:1,  unit:'bottle' },
+      { id:'p5',  name:'Salt',            emoji:'🧂', qty:1,  dqty:1,  unit:'box' },
+      { id:'p6',  name:'Garlic',          emoji:'🧄', qty:3,  dqty:3,  unit:'bulb' },
+      { id:'p7',  name:'Onions',          emoji:'🧅', qty:5,  dqty:5,  unit:'' },
+      { id:'p8',  name:'Canned Tomatoes', emoji:'🥫', qty:4,  dqty:6,  unit:'can' },
+      { id:'p9',  name:'Coffee',          emoji:'☕', qty:1,  dqty:1,  unit:'bag' },
+      { id:'p10', name:'Tea',             emoji:'🫖', qty:1,  dqty:1,  unit:'box' },
+      { id:'p11', name:'Sugar',           emoji:'🍯', qty:1,  dqty:1,  unit:'bag' },
+      { id:'p12', name:'Flour',           emoji:'🌾', qty:1,  dqty:1,  unit:'bag' },
+      { id:'p13', name:'Honey',           emoji:'🍯', qty:1,  dqty:1,  unit:'jar' },
+      { id:'p14', name:'Black Pepper',    emoji:'🌶️', qty:1,  dqty:1,  unit:'jar' },
+    ];
+
+    // ============================================================
+    // STATE
+    // ============================================================
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem('mykitchen-v2');
+        if (raw) return JSON.parse(raw);
+      } catch(e) {}
+      return {
+        fridge: JSON.parse(JSON.stringify(DEFAULT_FRIDGE)),
+        pantry: JSON.parse(JSON.stringify(DEFAULT_PANTRY)),
+      };
+    }
+
+    function saveState() {
+      localStorage.setItem('mykitchen-v2', JSON.stringify(state));
+    }
+
+    let state = loadState();
+
+    // Modal state
+    let modalSection = 'fridge';
+    let pickedEmoji   = '🥛';
+
+    // ============================================================
+    // RENDER HELPERS
+    // ============================================================
+
+    function makeItemCard(item, section) {
+      const card = document.createElement('div');
+      card.className = 'item-card';
+
+      const ratio = item.qty / item.dqty;
+      const qtyClass = item.qty <= 1 ? 'danger' : ratio <= 0.34 ? 'warn' : '';
+      const unitLabel = item.unit ? ` ${item.unit}` : '';
+
+      card.innerHTML = `
+        <button class="item-delete" onclick="removeItem('${section}','${item.id}')" title="Remove">✕</button>
+        <span class="item-emoji">${item.emoji}</span>
+        <div class="item-info">
+          <div class="item-name">${escHtml(item.name)}</div>
+          ${item.unit ? `<div class="item-unit">${escHtml(item.unit)}</div>` : ''}
+        </div>
+        <div class="item-controls">
+          <button class="qty-btn qty-minus" onclick="dec('${section}','${item.id}')">−</button>
+          <span class="qty-num ${qtyClass}">${item.qty}</span>
+          <button class="qty-btn qty-plus"  onclick="inc('${section}','${item.id}')">+</button>
+        </div>
+      `;
+      return card;
+    }
+
+    function escHtml(s) {
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // ============================================================
+    // RENDER SECTIONS
+    // ============================================================
+
+    function renderFridge() {
+      const list  = document.getElementById('fridge-list');
+      const count = document.getElementById('fridge-count');
+      const inStock = state.fridge.filter(i => i.qty > 0);
+
+      list.innerHTML = '';
+      inStock.forEach(item => list.appendChild(makeItemCard(item, 'fridge')));
+
+      count.textContent = `${inStock.length} item${inStock.length !== 1 ? 's' : ''}`;
+    }
+
+    function renderPantry() {
+      const body  = document.getElementById('pantry-body');
+      const count = document.getElementById('pantry-count');
+      const inStock = state.pantry.filter(i => i.qty > 0);
+
+      body.innerHTML = '';
+
+      if (inStock.length === 0) {
+        body.innerHTML = '<div style="padding:20px 14px;color:var(--muted);font-size:0.8rem;font-weight:700;">Pantry is empty.</div>';
+        count.textContent = '0 items';
+        return;
+      }
+
+      // Distribute items across up to 3 shelves
+      const perShelf = Math.ceil(inStock.length / 3);
+      const groups = [];
+      for (let i = 0; i < inStock.length; i += perShelf) {
+        groups.push(inStock.slice(i, i + perShelf));
+      }
+
+      const labels = ['Top Shelf', 'Middle Shelf', 'Bottom Shelf'];
+      groups.forEach((group, idx) => {
+        const shelf = document.createElement('div');
+        shelf.className = 'pantry-shelf';
+
+        const board = document.createElement('div');
+        board.className = 'pantry-shelf-board';
+
+        const lbl = document.createElement('div');
+        lbl.className = 'pantry-shelf-label';
+        lbl.textContent = labels[idx] || `Shelf ${idx + 1}`;
+        board.appendChild(lbl);
+
+        const list = document.createElement('div');
+        list.className = 'items-list';
+        group.forEach(item => list.appendChild(makeItemCard(item, 'pantry')));
+        board.appendChild(list);
+
+        shelf.appendChild(board);
+        body.appendChild(shelf);
+      });
+
+      count.textContent = `${inStock.length} item${inStock.length !== 1 ? 's' : ''}`;
+    }
+
+    function renderGrocery() {
+      const bodyEl  = document.getElementById('grocery-body');
+      const counter = document.getElementById('groceryCount');
+      const badge   = document.getElementById('headerBadge');
+
+      const out = [
+        ...state.fridge.filter(i => i.qty === 0).map(i => ({ ...i, section:'fridge' })),
+        ...state.pantry.filter(i => i.qty === 0).map(i => ({ ...i, section:'pantry' })),
+      ];
+
+      if (out.length === 0) {
+        counter.classList.remove('on');
+        badge.classList.remove('visible');
+        bodyEl.innerHTML = `
+          <div class="grocery-empty">
+            <span class="empty-icon">✅</span>
+            <p>All stocked up! Nothing to buy.</p>
+          </div>
+        `;
+        return;
+      }
+
+      counter.textContent = out.length;
+      counter.classList.add('on');
+      badge.textContent = `${out.length} to buy`;
+      badge.classList.add('visible');
+
+      bodyEl.innerHTML = '';
+      const grid = document.createElement('div');
+      grid.className = 'grocery-grid';
+
+      out.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'grocery-card';
+        card.innerHTML = `
+          <span class="grocery-card-emoji">${item.emoji}</span>
+          <div class="grocery-card-info">
+            <div class="grocery-card-name">${escHtml(item.name)}</div>
+            <div class="grocery-card-loc">${item.section === 'fridge' ? '❄️ Fridge' : '🪵 Pantry'}</div>
+          </div>
+          <button class="restock-btn" onclick="restock('${item.section}','${item.id}')">Got it!</button>
+        `;
+        grid.appendChild(card);
+      });
+
+      bodyEl.appendChild(grid);
+    }
+
+    function render() {
+      renderFridge();
+      renderPantry();
+      renderGrocery();
+      saveState();
+    }
+
+    // ============================================================
+    // ACTIONS
+    // ============================================================
+
+    function inc(section, id) {
+      const item = state[section].find(i => i.id === id);
+      if (item) { item.qty++; render(); }
+    }
+
+    function dec(section, id) {
+      const item = state[section].find(i => i.id === id);
+      if (!item || item.qty === 0) return;
+      item.qty--;
+      if (item.qty === 0) {
+        toast(`${item.emoji} ${item.name} is out — added to shopping list!`);
+      }
+      render();
+    }
+
+    function restock(section, id) {
+      const item = state[section].find(i => i.id === id);
+      if (item) {
+        item.qty = item.dqty;
+        toast(`${item.emoji} ${item.name} restocked!`);
+        render();
+      }
+    }
+
+    function restockAll() {
+      let count = 0;
+      ['fridge','pantry'].forEach(s => {
+        state[s].filter(i => i.qty === 0).forEach(i => { i.qty = i.dqty; count++; });
+      });
+      if (count > 0) {
+        toast(`All ${count} item${count !== 1 ? 's' : ''} restocked!`);
+        render();
+      }
+    }
+
+    function removeItem(section, id) {
+      state[section] = state[section].filter(i => i.id !== id);
+      render();
+    }
+
+    // ============================================================
+    // MODAL
+    // ============================================================
+
+    function openModal(section) {
+      modalSection = section;
+      pickedEmoji  = '🥛';
+      document.getElementById('modal-title').textContent =
+        section === 'fridge' ? '❄️ Add to Fridge' : '🪵 Add to Pantry';
+      document.getElementById('input-name').value = '';
+      document.getElementById('input-qty').value  = '1';
+      document.getElementById('input-unit').value = '';
+      renderEmojiGrid();
+      document.getElementById('modal-overlay').classList.add('open');
+      setTimeout(() => document.getElementById('input-name').focus(), 80);
+    }
+
+    function closeModal() {
+      document.getElementById('modal-overlay').classList.remove('open');
+    }
+
+    function renderEmojiGrid() {
+      const grid = document.getElementById('emoji-grid');
+      grid.innerHTML = '';
+      EMOJIS.forEach(em => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'emoji-opt' + (em === pickedEmoji ? ' picked' : '');
+        btn.textContent = em;
+        btn.onclick = () => { pickedEmoji = em; renderEmojiGrid(); };
+        grid.appendChild(btn);
+      });
+    }
+
+    function submitItem() {
+      const name = document.getElementById('input-name').value.trim();
+      const qty  = Math.max(1, parseInt(document.getElementById('input-qty').value) || 1);
+      const unit = document.getElementById('input-unit').value.trim();
+
+      if (!name) {
+        document.getElementById('input-name').focus();
+        return;
+      }
+
+      const id = modalSection[0] + Date.now();
+      state[modalSection].push({ id, name, emoji: pickedEmoji, qty, dqty: qty, unit });
+      toast(`${pickedEmoji} ${name} added!`);
+      closeModal();
+      render();
+    }
+
+    // Close modal on overlay click or ESC
+    document.getElementById('modal-overlay').addEventListener('click', e => {
+      if (e.target.id === 'modal-overlay') closeModal();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'Enter' && document.getElementById('modal-overlay').classList.contains('open')) {
+        submitItem();
+      }
+    });
+
+    // ============================================================
+    // TOAST
+    // ============================================================
+
+    function toast(msg) {
+      let el = document.querySelector('.toast');
+      if (el) el.remove();
+      el = document.createElement('div');
+      el.className = 'toast';
+      el.textContent = msg;
+      document.body.appendChild(el);
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('show')));
+      setTimeout(() => {
+        el.classList.remove('show');
+        setTimeout(() => el.remove(), 320);
+      }, 2600);
+    }
+
+    // ============================================================
+    // BOOT
+    // ============================================================
+
+    render();
+  </script>
+</body>
+</html>
